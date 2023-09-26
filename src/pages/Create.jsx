@@ -34,8 +34,6 @@ const Create = () => {
       setError(null);
       navigate('/');
     }
-
-    console.log('DEBUG');
   };
 
   return (
