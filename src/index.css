@@ -118,3 +118,9 @@ form button {
 .delete-button {
   cursor: pointer;
 }
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

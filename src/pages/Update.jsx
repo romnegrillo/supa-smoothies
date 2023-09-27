@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-
 import { useParams, useNavigate } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 import supabase from '../services/supabase';
 
@@ -12,6 +12,7 @@ const Update = () => {
   const [method, setMethod] = useState('');
   const [rating, setRating] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSmoothie = async () => {
@@ -29,6 +30,7 @@ const Update = () => {
         setTitle(data.title);
         setMethod(data.method);
         setRating(data.rating);
+        setLoading(false);
       }
     };
 
@@ -61,37 +63,41 @@ const Update = () => {
 
   return (
     <div className="page create">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-        <label htmlFor="method">Method</label>
-        <input
-          type="text"
-          id="method"
-          value={method}
-          onChange={(e) => setMethod(e.target.value)}
-        />
+          <label htmlFor="method">Method</label>
+          <input
+            type="text"
+            id="method"
+            value={method}
+            onChange={(e) => setMethod(e.target.value)}
+          />
 
-        <label htmlFor="rating">Rating</label>
-        <input
-          type="number"
-          min={1}
-          max={10}
-          id="rating"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-        />
+          <label htmlFor="rating">Rating</label>
+          <input
+            type="number"
+            min={1}
+            max={10}
+            id="rating"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+          />
 
-        <button type="submit">Edit Smoothie</button>
+          <button type="submit">Edit Smoothie</button>
 
-        {error && <p className="error">{error}</p>}
-      </form>
+          {error && <p className="error">{error}</p>}
+        </form>
+      )}
     </div>
   );
 };
