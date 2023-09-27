@@ -114,3 +114,7 @@ form button {
   font-family: 'Poppins';
   cursor: pointer;
 }
+
+.delete-button {
+  cursor: pointer;
+}
