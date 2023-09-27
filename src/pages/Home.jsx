@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 import SmoothieCard from '../components/SmoothieCard';
 
@@ -7,6 +8,7 @@ import supabase from '../services/supabase';
 const Home = () => {
   const [smoothies, setSmoothies] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const handleDelete = async (id) => {
     const { data, error } = await supabase
@@ -40,6 +42,7 @@ const Home = () => {
       if (data) {
         setSmoothies(data);
         setError(null);
+        setLoading(false);
       }
     };
 
@@ -48,6 +51,8 @@ const Home = () => {
 
   return (
     <div className="page home">
+      {loading && <LoadingSpinner />}
+
       {error && <p>{error}</p>}
 
       {smoothies && (
